@@ -5,7 +5,7 @@ export default class Life extends Phaser.Physics.Arcade.Sprite {
     super(scene, maxLives);
     this.scene = scene;
     this.maxLives = maxLives;
-    this.currentLives = maxLives
+    this.currentLives = maxLives;
     this.hearts = [];
     this.#createHearts();
   }
@@ -13,6 +13,7 @@ export default class Life extends Phaser.Physics.Arcade.Sprite {
   #createHearts = () => {
     for (let i = 0; i < this.maxLives; i++) {
       const heart = this.scene.add.image(40 + i * 40, 50, 'life').setScale(0.4);
+      heart.setDepth(999)
       this.hearts.push(heart);
     }
   }

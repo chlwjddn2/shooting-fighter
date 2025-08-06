@@ -3,6 +3,7 @@ import Player from "./Player";
 import Enemy from "./Enemy";
 import Boss from "./Boss";
 import Life from "./Life";
+import Score from "./Score";
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -37,6 +38,7 @@ export default class MainScene extends Phaser.Scene {
       frameWidth: 120,
       frameHeight: 120,
     });
+
   }
 
   create = () => {
@@ -97,6 +99,9 @@ export default class MainScene extends Phaser.Scene {
     // 충돌 설정
     this.physics.add.overlap(this.player.missiles, this.enemies, this.handleMissileEnemyCollision, null, this);
     this.physics.add.overlap(this.enemies, this.player, this.handleMissilePlayerCollision, null, this);
+
+    // score 설정
+    this.score = new Score(this, 30, 100);
   }
 
   update = () => {
@@ -110,7 +115,10 @@ export default class MainScene extends Phaser.Scene {
     missile.play('hit');
     missile.once('animationcomplete', () => missile.destroy());
     enemy.health -= missile.damage;
-    if (enemy.health === 0) enemy.destroyEnemy();
+    if (enemy.health === 0) {
+      enemy.destroyEnemy();
+      this.score.updateScore(10); // 점수 업데이트
+    }
   } 
 
   handleMissileBossCollision = (boss, missile) => { // 미사일과 보스 충돌 처리
@@ -120,7 +128,10 @@ export default class MainScene extends Phaser.Scene {
     missile.play('hit');
     missile.once('animationcomplete', () => missile.destroy());
     boss.health -= missile.damage;
-    if (boss.health === 0) boss.destroyEnemy();
+    if (boss.health === 0) {
+      boss.destroyEnemy();
+      this.score.updateScore(10); // 점수 업데이트
+    }
   }
 
   handleMissilePlayerCollision = (player, enemy) => { // 플레이어와 적 충돌 처리
