@@ -28,7 +28,6 @@ class Game {
     scale: {
       mode:Phaser.Scale.FIT,//자동맞춤
       autoCenter:Phaser.Scale.CENTER_BOTH,//가로세로 모두맞춤
-      
     },
     pixelArt: false,
   }

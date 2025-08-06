@@ -5,11 +5,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y);
     this.scene = scene;
-    this.setTexture('player');
-    this.setPosition(x, y);
-    this.setDepth(6);
-    this.scene.add.existing(this);
-    this.scene.physics.add.existing(this);
+    this.setTexture('player'); // 플레이어 텍스쳐 설정
+    this.setPosition(x, y); // 초기 위치 설정
+    this.setDepth(6); // 깊이 설정
+    this.scene.add.existing(this); // 씬에 추가
+    this.scene.physics.add.existing(this); // 물리 엔진에 추가
 
     this.speed = 7 // 움직임 속도;
     this.isMoving = false;

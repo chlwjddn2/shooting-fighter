@@ -2,7 +2,7 @@ import Phaser from "phaser";
 
 export default class Missile extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y); // texture도 여기서 바로 설정
+    super(scene, x, y);
     this.scene = scene;
     this.setTexture('missile');
     this.scene.add.existing(this);
@@ -14,8 +14,8 @@ export default class Missile extends Phaser.Physics.Arcade.Sprite {
     this.damage = 10;
   }
 
-  fire = () => {
-    this.body.enable = true;  // 발사할 때 반드시 물리 활성화
+  fire = () => { // 발사 메서드
+    this.body.enable = true; 
     this.setActive(true);
     this.setVisible(true);
     this.setPosition(this.x, this.y);

@@ -40,7 +40,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create = () => {
-    this.#initAnimation();
+    this.#initAnimation(); // 애니메이션 초기화
 
     const {x, y, width, height} = this.cameras.main;
     const center = {
@@ -48,10 +48,13 @@ export default class MainScene extends Phaser.Scene {
       y: y + height / 2
     };
 
-    this.background = this.add.tileSprite(x, y, width, height, 'background').setOrigin(0, 0);
+    this.background = this.add.tileSprite(x, y, width, height, 'background').setOrigin(0, 0); // 배경 설정
+
+    // 플레이어 생성
     this.player = new Player(this, center.x, height * 4 / 5);
     this.player.body.setCollideWorldBounds(true);
     
+    // 적 그룹 생성
     this.enemies = this.physics.add.group({
       classType: Enemy,
       runChildUpdate: true,
@@ -68,6 +71,7 @@ export default class MainScene extends Phaser.Scene {
       loop: true
     });
 
+    // 10초 뒤 보스 생성
     this.time.delayedCall(10000, () => {
       this.warning = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY, 'WARNING').setOrigin(0.5).setDepth(999).setFontSize(100).setAlign('center').setColor('yellow');
       
@@ -99,7 +103,7 @@ export default class MainScene extends Phaser.Scene {
     this.background.tilePositionY -= 1;
   }
 
-  handleMissileEnemyCollision = (missile, enemy) => {
+  handleMissileEnemyCollision = (missile, enemy) => { // 미사일과 적 충돌 처리
     missile.body.setVelocity(0, 0);
     missile.body.enable = false;
     missile.setScale(0.2);
@@ -109,7 +113,7 @@ export default class MainScene extends Phaser.Scene {
     if (enemy.health === 0) enemy.destroyEnemy();
   } 
 
-  handleMissileBossCollision = (boss, missile) => {
+  handleMissileBossCollision = (boss, missile) => { // 미사일과 보스 충돌 처리
     missile.body.setVelocity(0, 0);
     missile.body.enable = false;
     missile.setScale(0.2);
@@ -119,7 +123,7 @@ export default class MainScene extends Phaser.Scene {
     if (boss.health === 0) boss.destroyEnemy();
   }
 
-  handleMissilePlayerCollision = (player, enemy) => {
+  handleMissilePlayerCollision = (player, enemy) => { // 플레이어와 적 충돌 처리
     player.body.enable = false;
     this.life.loseLife();    
     this.tweens.add({
@@ -133,11 +137,9 @@ export default class MainScene extends Phaser.Scene {
         player.body.enable = true;
       }
     });
-    console.log(this.life.currentLives);
+    this.cameras.main.shake(500, 0.01);
     
     if (this.life.currentLives <= 0) {
-      console.log('Game Over');
-      
       this.scene.transition({ target : 'GameOverScene', duration : 500 });
     }
   }
