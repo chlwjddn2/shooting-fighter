@@ -11,34 +11,38 @@ export default class MainScene extends Phaser.Scene {
   }
 
   preload = () => {
-    this.load.image('background', './assets/background.png');
-    this.load.image('missile', './assets/missile00.png');
+    this.load.image('background', './public/assets/background.png');
+    this.load.image('missile', './public/assets/missile00.png');
 
-    this.load.image('enemy1', './assets/enemy1.png');
-    this.load.image('enemy2', './assets/enemy2.png');
-    this.load.image('boss', './assets/enemy3.png');
+    this.load.image('enemy1', './public/assets/enemy1.png');
+    this.load.image('enemy2', './public/assets/enemy2.png');
+    this.load.image('boss', './public/assets/enemy3.png');
 
-    this.load.spritesheet('destory', './assets/explosion.png', {
+    this.load.spritesheet('destory', './public/assets/explosion.png', {
       frameWidth: 96,
       frameHeight: 96,
     });
 
-    this.load.spritesheet('player', `./assets/player.png`, {
+    this.load.spritesheet('player', `./public/assets/player.png`, {
       frameWidth: 64,
       frameHeight: 64,
     });
 
-    this.load.spritesheet('hit', `./assets/hit.png`, {
+    this.load.spritesheet('hit', `./public/assets/hit.png`, {
       frameWidth: 1024,
       frameHeight: 1024,
     });
 
-    this.load.audio('shooting', './assets/audio/shooting.mp3');
-    this.load.spritesheet('life', './assets/life.png', {
+    this.load.audio('shooting', './public/assets/audio/shooting.mp3');
+    this.load.spritesheet('life', './public/assets/life.png', {
       frameWidth: 120,
       frameHeight: 120,
     });
 
+
+    //item
+    this.load.image('powerItem', './public/assets/item_powerUp.png');
+    this.load.image('healthItem', './public/assets/item_healthUp.png');
   }
 
   create = () => {
